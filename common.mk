@@ -22,29 +22,12 @@
 # definition file).
 #
 
-$(call inherit-product, vendor/motorola/sdm632-common/sdm632-common-vendor.mk)
-
-PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := true
-
-# Overlays
-DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-lineage
-
-PRODUCT_ENFORCE_RRO_TARGETS := *
-
 # A/B updater
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
-
-# Boot control HAL
-PRODUCT_PACKAGES += \
-    android.hardware.boot@1.0-impl.recovery \
-    bootctrl.msm8953 \
-    bootctrl.msm8953.recovery
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -80,13 +63,13 @@ PRODUCT_PACKAGES += \
     libbt-vendor \
     vendor.qti.hardware.btconfigstore@1.0.vendor
 
-# Boot animation
-TARGET_BOOTANIMATION_HALF_RES := true
-
 # Boot control HAL
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl \
-    android.hardware.boot@1.0-service
+    android.hardware.boot@1.0-service \
+    android.hardware.boot@1.0-impl.recovery \
+    bootctrl.msm8953 \
+    bootctrl.msm8953.recovery
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -108,9 +91,6 @@ PRODUCT_PACKAGES += \
 
 # Dalvik
 $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
-
-# Dex-pre-opt exclusions
-$(call add-product-dex-preopt-module-config,MotoSignatureApp,disable)
 
 # Display
 PRODUCT_PACKAGES += \
@@ -151,14 +131,6 @@ PRODUCT_PACKAGES += \
     FMRadio \
     libfmjni
 
-# GMS
-ifeq ($(WITH_GMS),true)
-GMS_MAKEFILE=gms_minimal.mk
-WITH_GMS_COMMS_SUITE=false
-endif
-
-PRODUCT_GMS_CLIENTID_BASE := android-motorola
-
 # GPS
 PRODUCT_PACKAGES += \
     android.hardware.gnss@2.0-impl-qti:64 \
@@ -178,9 +150,6 @@ PRODUCT_PACKAGES += \
     izat.conf \
     lowi.conf \
     sap.conf
-
-# GMS
-PRODUCT_GMS_CLIENTID_BASE := android-motorola
 
 # Health
 PRODUCT_PACKAGES += \
@@ -314,6 +283,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-vendorcompat \
     libprotobuf-cpp-lite-vendorcompat
+
+# Overlays
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay \
+    $(LOCAL_PATH)/overlay-lineage
+
+PRODUCT_ENFORCE_RRO_TARGETS := *
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -474,3 +450,5 @@ PRODUCT_PACKAGES += \
 # WCNSS
 PRODUCT_PACKAGES += \
     wcnss_service
+
+$(call inherit-product, vendor/motorola/sdm632-common/sdm632-common-vendor.mk)

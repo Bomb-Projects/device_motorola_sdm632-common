@@ -131,11 +131,11 @@ LOC_HIDL_VERSION := 3.0
 
 # HIDL
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
-    $(PLATFORM_PATH)/framework_compatibility_matrix.xml \
+    $(PLATFORM_PATH)/configs/vintf/framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix_legacy.xml \
     vendor/lineage/config/device_framework_matrix.xml
-DEVICE_MANIFEST_FILE := $(PLATFORM_PATH)/manifest.xml
+DEVICE_MANIFEST_FILE := $(PLATFORM_PATH)/configs/vintf/manifest.xml
 DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix.xml
 TARGET_FS_CONFIG_GEN += \
     $(PLATFORM_PATH)/config.fs \
@@ -150,7 +150,6 @@ BOARD_KERNEL_CMDLINE += androidboot.hardware=qcom ehci-hcd.park=3 lpm_levels.sle
 BOARD_KERNEL_CMDLINE += androidboot.bootdevice=7824900.sdhci androidboot.usbconfigfs=true
 BOARD_KERNEL_CMDLINE += loop.max_part=7 androidboot.boot_devices=soc/7824900.sdhci
 BOARD_KERNEL_CMDLINE += androidboot.veritymode=eio
-#BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE :=  2048
 BOARD_KERNEL_OFFSET := 0x00008000
@@ -169,19 +168,13 @@ TARGET_PROVIDES_LIBLIGHT := true
 
 # NFC / ODM
 ODM_MANIFEST_SKUS += nfc
-ODM_MANIFEST_NFC_FILES := $(PLATFORM_PATH)/odm_manifest_nfc.xml
+ODM_MANIFEST_NFC_FILES := $(PLATFORM_PATH)/configs/vintf/odm_manifest_nfc.xml
 
 # Partitions
-BOARD_FLASH_BLOCK_SIZE := 131072                  # (BOARD_KERNEL_PAGESIZE * 64)
+BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
 BOARD_DTBOIMG_PARTITION_SIZE := 8388608
-ifneq (,$(filter %channel, $(TARGET_PRODUCT)))
-BOARD_VENDORIMAGE_EXTFS_INODE_COUNT   := 4096
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE    := squashfs
-BOARD_VENDORIMAGE_JOURNAL_SIZE        := 0
-BOARD_VENDORIMAGE_SQUASHFS_COMPRESSOR := lz4
-else
+BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
-endif
 BOARD_USES_RECOVERY_AS_BOOT := true
 TARGET_NO_RECOVERY := true
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -196,10 +189,10 @@ TARGET_HAS_NO_WLAN_STATS := true
 TARGET_USES_INTERACTION_BOOST := true
 
 # Properties
-TARGET_ODM_PROP += $(PLATFORM_PATH)/odm.prop
-TARGET_PRODUCT_PROP += $(PLATFORM_PATH)/product.prop
-TARGET_SYSTEM_PROP += $(PLATFORM_PATH)/system.prop
-TARGET_VENDOR_PROP += $(PLATFORM_PATH)/vendor.prop
+TARGET_ODM_PROP += $(PLATFORM_PATH)/properties/odm.prop
+TARGET_PRODUCT_PROP += $(PLATFORM_PATH)/properties/product.prop
+TARGET_SYSTEM_PROP += $(PLATFORM_PATH)/properties/system.prop
+TARGET_VENDOR_PROP += $(PLATFORM_PATH)/properties/vendor.prop
 
 # RIL
 ENABLE_VENDOR_RIL_SERVICE := true

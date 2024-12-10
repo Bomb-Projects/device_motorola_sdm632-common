@@ -104,11 +104,6 @@ function blob_fixup() {
             [ "$2" = "" ] && return 0
             grep -q libutils-v33.so "${2}" || "${PATCHELF}" --add-needed "libutils-v33.so" "${2}"
             ;;
-        # Move to vendor
-        vendor/etc/permissions/com.motorola.motosignature.xml)
-            [ "$2" = "" ] && return 0
-            sed -i 's|/system/framework|/vendor/framework|' "${2}"
-            ;;
         # Fix missing symbols
         vendor/lib/libmot_gpu_mapper.so)
             [ "$2" = "" ] && return 0
