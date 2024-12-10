@@ -90,8 +90,6 @@ blob_fixups: blob_fixups_user_type = {
         .add_needed('libgui_shim.so'),
     'vendor/bin/pm-service': blob_fixup()
         .add_needed('libutils-v33.so'),
-    'vendor/etc/permissions/com.motorola.motosignature.xml': blob_fixup()
-        .regex_replace('system', 'vendor'),
     ('vendor/lib/sensors.rp.so', 'vendor/lib64/sensors.rp.so'): blob_fixup()
         .replace_needed('libutils.so', 'libutils-v32.so'),
     'vendor/lib64/libmotext_inf.so': blob_fixup()
