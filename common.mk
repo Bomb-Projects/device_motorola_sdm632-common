@@ -29,6 +29,12 @@ $(call inherit-product, hardware/qcom-caf/common/common.mk)
 
 # A/B updater
 AB_OTA_POSTINSTALL_CONFIG += \
+     RUN_POSTINSTALL_product=true \
+     POSTINSTALL_PATH_product=bin/check_dynamic_partitions \
+     FILESYSTEM_TYPE_product=ext4 \
+     POSTINSTALL_OPTIONAL_product=false
+
+AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
     FILESYSTEM_TYPE_system=ext4 \
@@ -89,6 +95,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     disable_configstore
 
+# Dynamic partitions
+ PRODUCT_USE_DYNAMIC_PARTITIONS := true
+ PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := true
+
 # Dalvik
 $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 
@@ -107,6 +117,10 @@ $(call soong_config_set,qtidisplay,display_config_variable_info_has_pixel_format
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm-service.clearkey
+
+# Fastboot
+ PRODUCT_PACKAGES += \
+     fastbootd
 
 # FM
 PRODUCT_PACKAGES += \
@@ -328,6 +342,7 @@ PRODUCT_PACKAGES += \
 
 # Update Engine
 PRODUCT_PACKAGES += \
+    check_dynamic_partitions \
     otapreopt_script \
     update_engine \
     update_engine_sideload \
