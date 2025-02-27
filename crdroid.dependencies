@@ -1,0 +1,15 @@
+[
+  {
+    "repository": "crdroidandroid/android_kernel_motorola_sdm632",
+    "target_path": "kernel/motorola/sdm632"
+  },
+  {
+    "repository": "LineageOS/android_hardware_motorola",
+    "target_path": "hardware/motorola",
+    "branch": "lineage-22.2"
+  },
+  {
+    "repository": "crdroidandroid/proprietary_vendor_motorola_sdm632-common",
+    "target_path": "vendor/motorola/sdm632-common"
+  }
+]
