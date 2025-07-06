@@ -117,8 +117,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.5 \
     camera.device@3.2-impl:32 \
     libbson.vendor \
-    libxml2 \
-    Snap
+    libxml2
 
 # Codec2 modules
 PRODUCT_PACKAGES += \
@@ -361,6 +360,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librmnetctl \
     libprotobuf-cpp-full
+
 
 # Recovery
 TARGET_RECOVERY_DENSITY := xhdpi
