@@ -35,9 +35,8 @@ on moto-charger
     setprop sys.usb.configfs 1
     setprop sys.usb.config charging
     start qcom-post-boot
-    start vendor.hvdcp_opti
     start gbmodinstall
-    start vendor.charge_only_mode
+    start vendor.pixel_charger
     start vendor.batt_health
     start vendor.thermal-com
 
