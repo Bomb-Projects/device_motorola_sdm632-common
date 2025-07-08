@@ -286,11 +286,6 @@ on property:ro.vendor.hw.dualsim=false
 on property:sys.sysctl.swappiness=*
     write /proc/sys/vm/swappiness ${sys.sysctl.swappiness}
 
-service vendor.charge_only_mode /vendor/bin/charge_only_mode
-    user root
-    group graphics system input
-    disabled
-
 service vendor.thermal-com /vendor/bin/thermal-engine --minimode
     class main
     user root
